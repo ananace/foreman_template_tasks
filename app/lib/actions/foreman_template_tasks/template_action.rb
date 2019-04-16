@@ -13,20 +13,33 @@ module Actions
       def humanized_output
         return unless output[:results]
 
+        changes = output[:results]
+                  .select { |r| (r[:imported] || r[:exported] ) && r[:changed] }
+
         exceptions = output[:results]
                      .reject { |r| r[:exception].nil? }
                      .group_by { |r| [r[:type], r[:additional_errors] || r[:exception]] }
                      .map do |k, v|
-          "#{v.size} templates#{k.first.nil? ? '' : " of type #{k.first}"} skipped: #{k.last}"
+          "#{v.size} templates#{k.first.nil? ? '' : " of type #{k.first}"} skipped because: #{k.last}"
         end
 
-        out = "#{humanized_action} finished, #{output[:results].select { |r| r[:exception].nil? }.count} templates handled"
-        if exceptions.empty?
-          out += '.'
-        else
-          out += ", #{output[:results].reject { |r| r[:exception].nil? }.count} skipped;"
-          out += "\n\n" + exceptions.join("\n")
+        out = "#{humanized_action} finished, "
+        out += if changes.any?
+                 "#{changes.count} templates changed"
+               else
+                 'no changes to affected templates'
+               end
+
+        out += if exceptions.any?
+                 ", #{output[:results].reject { |r| r[:exception].nil? }.count} templates skipped;\n- " + exceptions.join("\n- ")
+               else
+                 '.'
+               end
+
+        if changes.any?
+          out += "\n\nTemplates changed:\n- " + changes.map { |ch| "#{ch[:type].camel_case} | #{ch[:name]}" }.join("\n- ")
         end
+
         out
       end
 
@@ -41,8 +54,9 @@ module Actions
             type: r[:type],
             changed: r[:changed],
             imported: r[:imported],
+            exported: r[:exported],
             error: r[:additional_errors] || r[:exception]
-          }
+          }.compact
         end
       end
 
