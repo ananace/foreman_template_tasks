@@ -29,7 +29,8 @@ module Actions
         out += if changes.any?
                  "#{changes.count} templates changed"
                else
-                 'no changes to affected templates'
+                 location = self.class == TemplateImportAction ? 'local' : 'remote'
+                 "no changes to #{location} templates"
                end
 
         out += if exceptions.any?
