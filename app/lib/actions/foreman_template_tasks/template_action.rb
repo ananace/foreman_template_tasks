@@ -16,7 +16,7 @@ module Actions
         return unless output[:results]
 
         changes = output[:results]
-                  .select { |r| (r[:imported] || r[:exported] ) && r[:changed] }
+                  .select { |r| (r[:imported] || r[:exported]) && r[:changed] }
 
         exceptions = output[:results]
                      .reject { |r| r[:exception].nil? }
