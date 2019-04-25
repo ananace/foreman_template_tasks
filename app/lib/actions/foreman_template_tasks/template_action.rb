@@ -3,6 +3,8 @@
 module Actions
   module ForemanTemplateTasks
     class TemplateAction < Actions::Base
+      include Actions::RecurringAction
+
       middleware.use Actions::Middleware::KeepCurrentUser
 
       def plan(template_params = {})
