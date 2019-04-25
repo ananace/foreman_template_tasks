@@ -47,7 +47,7 @@ module Actions
       end
 
       def humanized_action
-        ''
+        raise NotImplementedError
       end
 
       def task_output
