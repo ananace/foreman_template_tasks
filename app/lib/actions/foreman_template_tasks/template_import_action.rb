@@ -12,10 +12,6 @@ module Actions
       def humanized_action
         'Import'
       end
-
-      def humanized_name
-        _('Import Foreman Templates')
-      end
     end
   end
 end

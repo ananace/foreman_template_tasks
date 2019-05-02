@@ -8,6 +8,7 @@ module Actions
       middleware.use Actions::Middleware::KeepCurrentUser
 
       def plan(template_params = {})
+        input.update context: template_params.delete(:context)
         input.update task_params: template_params
         plan_self
       end
@@ -48,6 +49,12 @@ module Actions
 
       def humanized_action
         raise NotImplementedError
+      end
+
+      def humanized_name
+        format N_('%<action>s Foreman Templates%<context>s'),
+               action: humanized_action,
+               context: input[:context] ? " (#{input[:context]})" : ''
       end
 
       def task_output

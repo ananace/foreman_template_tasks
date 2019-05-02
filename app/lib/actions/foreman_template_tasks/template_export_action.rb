@@ -12,10 +12,6 @@ module Actions
       def humanized_action
         'Export'
       end
-
-      def humanized_name
-        _('Export Foreman Templates')
-      end
     end
   end
 end
