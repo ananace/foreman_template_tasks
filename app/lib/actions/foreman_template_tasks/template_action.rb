@@ -7,8 +7,8 @@ module Actions
 
       middleware.use Actions::Middleware::KeepCurrentUser
 
-      def plan(template_params = {})
-        input.update context: template_params.delete(:context)
+      def plan(context = nil, **template_params)
+        input.update context: context
         input.update task_params: template_params
         plan_self
       end
