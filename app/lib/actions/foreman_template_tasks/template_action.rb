@@ -7,9 +7,23 @@ module Actions
 
       middleware.use Actions::Middleware::KeepCurrentUser
 
-      def plan(context = nil, **template_params)
+      def delay(delay_options, context: nil, **task_params)
+        task_params = task_params.compact
         input.update context: context
-        input.update task_params: template_params
+        input.update task_params: task_params
+
+        super delay_options, { context: context, task_params: task_params }
+      end
+
+      # Rails passes hashes with keys as string by default
+      def plan(args = {})
+        _plan(args.to_options)
+      end
+
+      def _plan(context: nil, **task_params)
+        input.update context: context
+        input.update task_params: task_params.compact
+
         plan_self
       end
 
