@@ -17,12 +17,12 @@ module Actions
 
       # Rails passes hashes with keys as string by default
       def plan(args = {})
-        _plan(args.to_options)
+        _plan(args.deep_symbolize_keys)
       end
 
       def _plan(context: nil, **task_params)
         input.update context: context
-        input.update task_params: task_params.compact
+        input.update task_params: task_params
 
         plan_self
       end
