@@ -58,7 +58,7 @@ module Actions
                end
 
         if changes.any?
-          out += "\n\nTemplates changed:\n- " + changes.map { |ch| "#{ch[:type].camel_case} | #{ch[:name]}" }.join("\n- ")
+          out += "\n\nTemplates changed:\n- " + changes.map { |ch| "#{ch[:type].camelcase} | #{ch[:name]}" }.join("\n- ")
         end
 
         out
