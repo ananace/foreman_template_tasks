@@ -21,6 +21,9 @@ module Actions
       end
 
       def _plan(context: nil, **task_params)
+        # Apparently this can happen?
+        task_params = task_params[:task_params] if task_params.key? :task_params
+
         input.update context: context
         input.update task_params: task_params
 
