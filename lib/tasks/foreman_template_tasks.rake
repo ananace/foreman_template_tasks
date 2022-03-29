@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'pp'
 
-namespace :template_tasks do
+namespace :template_tasks do # rubocop:disable Metrics/BlockLength
   desc 'Start a template import according to settings'
-  task import: :environment do
+  task import: [:environment, 'dynflow:client'] do
     User.current = User.anonymous_admin
     context = ENV['context']
 
@@ -25,7 +27,7 @@ namespace :template_tasks do
   end
 
   desc 'Start a template export according to settings'
-  task export: :environment do
+  task export: [:environment, 'dynflow:client'] do
     User.current = User.anonymous_admin
     context = ENV['context']
 
@@ -48,7 +50,7 @@ namespace :template_tasks do
 
   namespace :import do
     desc 'Schedule a recurring template import'
-    task schedule_recurring: :environment do
+    task schedule_recurring: [:environment, 'dynflow:client'] do
       context = ENV['context']
       cronline = ENV['cronline']
 
@@ -77,7 +79,7 @@ namespace :template_tasks do
 
   namespace :export do
     desc 'Schedule a recurring template import'
-    task schedule_recurring: :environment do
+    task schedule_recurring: [:environment, 'dynflow:client'] do
       context = ENV['context']
       cronline = ENV['cronline']
 
