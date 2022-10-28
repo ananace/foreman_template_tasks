@@ -47,18 +47,18 @@ module Actions
         out += if changes.any?
                  "#{changes.count} templates changed"
                else
-                 location = self.class == TemplateImportAction ? 'local' : 'remote'
+                 location = is_a?(TemplateImportAction) ? 'local' : 'remote'
                  "no changes to #{location} templates"
                end
 
         out += if exceptions.any?
-                 ", #{output[:results].reject { |r| r[:exception].nil? }.count} templates skipped;\n- " + exceptions.join("\n- ")
+                 ", #{output[:results].count { |r| !r[:exception].nil? }} templates skipped;\n- " + exceptions.join("\n- ")
                else
                  '.'
                end
 
         if changes.any?
-          out += "\n\nTemplates changed:\n- " + changes.map { |ch| "#{ch[:type].camelcase} | #{ch[:name]}" }.join("\n- ")
+          out += "\n\nTemplates changed:\n- #{changes.map { |ch| "#{ch[:type].camelcase} | #{ch[:name]}" }.join("\n- ")}"
         end
 
         out
