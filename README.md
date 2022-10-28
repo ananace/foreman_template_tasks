@@ -4,7 +4,7 @@ A small [Foreman](https://theforeman.org/) plugin to add tasks for automatic tem
 
 ## Contributing
 
-Bug reports and pull requests are welcome [on GitHub](https://github.com/ananace/foreman_template_tasks).
+Bug reports and pull requests are welcome on the LiU GitLab at https://gitlab.liu.se/ITI/foreman_template_tasks or on GitHub at https://github.com/ananace/foreman_template_tasks
 
 ## License
 
