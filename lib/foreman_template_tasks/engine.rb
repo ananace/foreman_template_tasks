@@ -22,14 +22,5 @@ module ForemanTemplateTasks
     initializer 'foreman_template_tasks.dynflow_world', before: 'foreman_tasks.initialize_dynflow' do |_app|
       ::ForemanTasks.dynflow.require!
     end
-
-    # Include concerns in this config.to_prepare block
-    config.to_prepare do
-      begin
-        # ::
-      rescue StandardError => e
-        Rails.logger.warn "ForemanTemplateTasks: skipping engine hook (#{e})"
-      end
-    end
   end
 end

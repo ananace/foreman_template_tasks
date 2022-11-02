@@ -16,4 +16,9 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'foreman-tasks'
   spec.add_runtime_dependency 'foreman_templates'
+
+  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rubocop-minitest'
+  spec.add_development_dependency 'rubocop-performance'
+  spec.add_development_dependency 'rubocop-rails'
 end

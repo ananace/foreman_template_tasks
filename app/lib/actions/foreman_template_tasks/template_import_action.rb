@@ -3,7 +3,6 @@
 module Actions
   module ForemanTemplateTasks
     class TemplateImportAction < TemplateAction
-
       def run
         importer = ForemanTemplates::TemplateImporter.new(input[:task_params])
         output[:results] = importer.import![:results].map(&:to_h)

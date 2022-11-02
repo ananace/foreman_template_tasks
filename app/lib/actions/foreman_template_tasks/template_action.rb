@@ -30,6 +30,7 @@ module Actions
         plan_self
       end
 
+      # rubocop:disable Metrics/MethodLength
       def humanized_output
         return unless output[:results]
 
@@ -52,17 +53,18 @@ module Actions
                end
 
         out += if exceptions.any?
-                 ", #{output[:results].count { |r| !r[:exception].nil? }} templates skipped;\n- " + exceptions.join("\n- ")
+                 ", #{output[:results].count { |r| !r[:exception].nil? }} templates skipped;\n- #{exceptions.join("\n- ")}" # rubocop:disable Layout/LineLength
                else
                  '.'
                end
 
         if changes.any?
-          out += "\n\nTemplates changed:\n- #{changes.map { |ch| "#{ch[:type].camelcase} | #{ch[:name]}" }.join("\n- ")}"
+          out += "\n\nTemplates changed:\n- #{changes.map { |ch| "#{ch[:type].camelcase} | #{ch[:name]}" }.join("\n- ")}" # rubocop:disable Layout/LineLength
         end
 
         out
       end
+      # rubocop:enable Metrics/MethodLength
 
       def humanized_action
         raise NotImplementedError

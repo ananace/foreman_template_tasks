@@ -3,7 +3,6 @@
 module Actions
   module ForemanTemplateTasks
     class TemplateExportAction < TemplateAction
-
       def run
         exporter = ForemanTemplates::TemplateExporter.new(input[:task_params])
         output[:results] = exporter.export![:results].map(&:to_h)
