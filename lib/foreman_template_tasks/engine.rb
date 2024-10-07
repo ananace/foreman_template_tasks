@@ -13,9 +13,11 @@ module ForemanTemplateTasks
       ::ForemanTasks.dynflow.config.eager_load_paths.concat(%W[#{ForemanTemplateTasks::Engine.root}/app/lib/actions])
     end
 
-    initializer 'foreman_template_tasks.register_plugin', before: :finisher_hook do |_app|
-      Foreman::Plugin.register :foreman_template_tasks do
-        requires_foreman '>= 1.19'
+    initializer 'foreman_template_tasks.register_plugin', before: :finisher_hook do |app|
+      app.reloader.to_prepare do
+        Foreman::Plugin.register :foreman_template_tasks do
+          requires_foreman '>= 3.12'
+        end
       end
     end
 
